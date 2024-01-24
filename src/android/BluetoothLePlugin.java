@@ -747,7 +747,19 @@ public class BluetoothLePlugin extends CordovaPlugin {
     AdvertiseSettings advertiseSettings = settingsBuilder.build();
 
     AdvertiseData.Builder dataBuilder = new AdvertiseData.Builder();
+    addDataToBuilder(dataBuilder, obj);
+    AdvertiseData advertiseData = dataBuilder.build();
 
+    AdvertiseData.Builder scanResponseDataBuilder = new AdvertiseData.Builder();
+    addDataToBuilder(scanResponseDataBuilder, obj);
+    AdvertiseData scanResponse = scanResponseDataBuilder.build();
+
+    advertiseCallbackContext = callbackContext;
+
+    advertiser.startAdvertising(advertiseSettings, advertiseData, scanResponse, advertiseCallback);
+  }
+
+  private void addDataToBuilder(AdvertiseData.Builder dataBuilder, JSONObject obj) {
     int manufacturerId = obj.optInt("manufacturerId", 0);
     byte[] manufacturerSpecificData = getPropertyBytes(obj, "manufacturerSpecificData");
     if (manufacturerId >= 0 && manufacturerSpecificData != null) {
@@ -765,14 +777,7 @@ public class BluetoothLePlugin extends CordovaPlugin {
     }
 
     dataBuilder.setIncludeDeviceName(obj.optBoolean("includeDeviceName", true));
-
     dataBuilder.setIncludeTxPowerLevel(obj.optBoolean("includeTxPowerLevel", true));
-
-    AdvertiseData advertiseData = dataBuilder.build();
-
-    advertiseCallbackContext = callbackContext;
-
-    advertiser.startAdvertising(advertiseSettings, advertiseData, advertiseCallback);
   }
 
   private void stopAdvertisingAction(JSONArray args, CallbackContext callbackContext) {

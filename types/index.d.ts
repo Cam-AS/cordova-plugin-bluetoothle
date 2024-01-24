@@ -545,12 +545,14 @@ declare namespace BluetoothlePlugin {
          * @param success The success callback that is passed with device's status
          * @param error   The callback that will be triggered when startAdvertising operation fails
          * @param params  Advertising params
+         * @param params  scanResponse params
          *
          */
         startAdvertising(
             success: (result: { status: Status}) => void,
             error: (error: Error) => void,
-            params: AdvertisingParams): void;
+            params: AdvertisingParams,
+            scanResponse: AdvertisingParams): void;
 
         /**
          * Stop advertising
