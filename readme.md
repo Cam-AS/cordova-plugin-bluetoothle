@@ -2165,7 +2165,7 @@ On iOS, the advertising devices likes to rename itself back to the name of the d
 Android API >= 31 also requires BLUETOOTH_ADVERTISE permissions to perform advertising. You can use ```hasPermissionBtAdvertise``` to determine whether advertise permission is granted or use ```requestPermissionBtAdvertise``` to prompt for it.
 
 ```javascript
-bluetoothle.startAdvertising(success, error, params);
+bluetoothle.startAdvertising(success, error, params, scanResponse);
 ```
 
 ##### Params #####
